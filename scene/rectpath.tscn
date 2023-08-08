@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://xmtifbnv6fhd"]
+
+[ext_resource type="Texture2D" uid="uid://dvuq5xufn1013" path="res://assets/circle.png" id="2_kokyy"]
+
+[sub_resource type="Curve2D" id="Curve2D_43w20"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 192, 0, 0, 0, 0, 0, -192, 0, 0, 0, 0, 0, 192, -128, 0, 0, 0, 0, -192, -256, 0, 0, 0, 0, 192, -256, 0, 0, 0, 0, -192, -128, 0, 0, 0, 0, 192, 0)
+}
+point_count = 7
+
+[sub_resource type="GDScript" id="GDScript_gmghu"]
+script/source = "extends Area2D
+
+@onready var _follow : PathFollow2D = get_parent()
+
+@export var _speed = 10
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _physics_process(delta):
+	_follow.set_progress(_follow.get_progress() + _speed +delta)
+
+
+func _on_body_entered(body):
+	if body.name == \"player\":
+		get_tree().reload_current_scene()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dovd2"]
+radius = 21.095
+
+[node name="rectpath" type="Node2D"]
+
+[node name="srightline" type="Path2D" parent="."]
+scale = Vector2(1, 0.96875)
+curve = SubResource("Curve2D_43w20")
+
+[node name="Follow" type="PathFollow2D" parent="srightline"]
+position = Vector2(192, 0)
+rotation = 3.14159
+
+[node name="ene" type="Area2D" parent="srightline/Follow"]
+position = Vector2(1.09139e-11, -1.52588e-05)
+script = SubResource("GDScript_gmghu")
+
+[node name="Sprite2D" type="Sprite2D" parent="srightline/Follow/ene"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_kokyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="srightline/Follow/ene"]
+shape = SubResource("CircleShape2D_dovd2")
+
+[connection signal="body_entered" from="srightline/Follow/ene" to="srightline/Follow/ene" method="_on_body_entered"]

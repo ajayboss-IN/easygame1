@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxmnt1q7db4h6"]
+
+[ext_resource type="Texture2D" uid="uid://bahhsl0yws3rj" path="res://assets/fullbox.png" id="1_ptxgy"]
+
+[sub_resource type="GDScript" id="GDScript_vc1v5"]
+script/source = "extends Area2D
+
+
+@export_category(\"Rotation\")
+@export var rotation_speed = 0.01
+
+
+func _physics_process(delta):
+	rotate(rotation_speed)
+	
+
+
+func _on_body_entered(body):
+	if body.name == \"player\":
+		get_tree().reload_current_scene()
+		#get_tree().change_scene_to_file(\"res://scene/mainmenu.tscn\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgov6"]
+
+[node name="line" type="Node2D"]
+
+[node name="rotate" type="Area2D" parent="."]
+scale = Vector2(1.00175, 1.00646)
+script = SubResource("GDScript_vc1v5")
+rotation_speed = 0.03
+
+[node name="Fullbox" type="Sprite2D" parent="rotate"]
+scale = Vector2(3.10701, 0.187874)
+texture = ExtResource("1_ptxgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rotate"]
+scale = Vector2(29.1957, 0.965155)
+shape = SubResource("RectangleShape2D_rgov6")
+
+[node name="Fullbox2" type="Sprite2D" parent="rotate"]
+rotation = 1.57079
+scale = Vector2(3.13343, 0.184523)
+texture = ExtResource("1_ptxgy")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="rotate"]
+rotation = 1.57079
+scale = Vector2(29.4161, 0.966834)
+shape = SubResource("RectangleShape2D_rgov6")
+
+[connection signal="body_entered" from="rotate" to="rotate" method="_on_body_entered"]

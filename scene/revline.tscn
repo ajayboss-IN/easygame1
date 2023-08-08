@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhn3ebri1nv4"]
+
+[ext_resource type="Texture2D" uid="uid://b6dnbblw5fdbf" path="res://assets/line.png" id="2_xdh2y"]
+
+[sub_resource type="GDScript" id="GDScript_crrpd"]
+script/source = "extends Area2D
+
+
+@export_category(\"Rotation\")
+@export var rotation_speed = 0.01
+
+
+func _physics_process(delta):
+	rotate(rotation_speed)
+	
+
+
+func _on_body_entered(body):
+	if body.name == \"player\":
+		get_tree().change_scene_to_file(\"res://scene/mainmenu.tscn\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rge5i"]
+
+[node name="revline" type="Node2D"]
+
+[node name="rotate" type="Area2D" parent="."]
+scale = Vector2(1.00175, 1.00646)
+script = SubResource("GDScript_crrpd")
+rotation_speed = -0.01
+
+[node name="Fullbox" type="Sprite2D" parent="rotate"]
+scale = Vector2(2.9656, 0.258774)
+texture = ExtResource("2_xdh2y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rotate"]
+scale = Vector2(29.1925, 0.147272)
+shape = SubResource("RectangleShape2D_rge5i")
+
+[connection signal="body_entered" from="rotate" to="rotate" method="_on_body_entered"]

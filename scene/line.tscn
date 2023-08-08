@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw5adqqv6nyo7"]
+
+[ext_resource type="Script" path="res://script/rotate.gd" id="1_6p1i5"]
+[ext_resource type="Texture2D" uid="uid://b6dnbblw5fdbf" path="res://assets/line.png" id="2_5htlv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgov6"]
+
+[node name="line" type="Node2D"]
+
+[node name="rotate" type="Area2D" parent="."]
+scale = Vector2(1.00175, 1.00646)
+script = ExtResource("1_6p1i5")
+
+[node name="Fullbox" type="Sprite2D" parent="rotate"]
+scale = Vector2(2.9656, 0.258774)
+texture = ExtResource("2_5htlv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rotate"]
+scale = Vector2(29.1925, 0.147272)
+shape = SubResource("RectangleShape2D_rgov6")
+
+[connection signal="body_entered" from="rotate" to="rotate" method="_on_body_entered"]

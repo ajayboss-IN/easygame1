@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://rqnqysnt5ksk"]
+
+[ext_resource type="Script" path="res://script/mainmenu.gd" id="1_0x671"]
+[ext_resource type="Texture2D" uid="uid://cuq3ymdyevo8c" path="res://assets/editable.png" id="2_fyt1m"]
+
+[node name="world" type="Node2D"]
+position = Vector2(27, 133)
+script = ExtResource("1_0x671")
+
+[node name="Editable" type="Sprite2D" parent="."]
+position = Vector2(550.5, 188.5)
+scale = Vector2(1.4987, 2.48828)
+texture = ExtResource("2_fyt1m")
+
+[node name="platbtn" type="Button" parent="."]
+offset_left = 370.0
+offset_top = 80.0
+offset_right = 698.0
+offset_bottom = 213.0
+text = "Play"
+
+[node name="about" type="Button" parent="."]
+offset_left = 843.0
+offset_top = 289.0
+offset_right = 1056.0
+offset_bottom = 363.0
+text = "About"
+
+[node name="heading" type="Button" parent="."]
+offset_left = 216.0
+offset_top = -92.0
+offset_right = 825.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 60
+text = "!Easy Game"
+
+[node name="quitbtn" type="Button" parent="."]
+offset_left = 370.0
+offset_top = 270.0
+offset_right = 698.0
+offset_bottom = 403.0
+text = "Quit"
+
+[connection signal="pressed" from="platbtn" to="." method="_on_platbtn_pressed"]
+[connection signal="pressed" from="about" to="." method="_on_about_pressed"]
+[connection signal="pressed" from="quitbtn" to="." method="_on_quitbtn_pressed"]

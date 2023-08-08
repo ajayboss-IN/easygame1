@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgk2icsvp13g7"]
+
+[ext_resource type="Texture2D" uid="uid://cs4yodenyoddc" path="res://icon.svg" id="1_qrhkb"]
+[ext_resource type="PackedScene" uid="uid://cw5adqqv6nyo7" path="res://scene/line.tscn" id="2_77bne"]
+[ext_resource type="Texture2D" uid="uid://dvuq5xufn1013" path="res://assets/circle.png" id="3_amacc"]
+[ext_resource type="Script" path="res://script/pathscr.gd" id="3_bk50y"]
+[ext_resource type="PackedScene" uid="uid://b58semj4o77w0" path="res://scene/pathall.tscn" id="5_buvo0"]
+
+[sub_resource type="Curve2D" id="Curve2D_47n6y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 572.54, 256, 0, 0, 0, 0, 76.5817, 257, 0, 0, 0, 0, 572.54, 257)
+}
+point_count = 3
+
+[sub_resource type="GDScript" id="GDScript_mh0rf"]
+script/source = "extends Area2D
+
+@onready var _follow : PathFollow2D = get_parent()
+
+@export var _speed = 10
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func _physics_process(delta):
+	_follow.set_progress(_follow.get_progress() + _speed +delta)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a04dk"]
+size = Vector2(10, 16.8427)
+
+[sub_resource type="Curve2D" id="Curve2D_4icsj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -208, -12, 0, 0, 0, 0, 201, -11, 0, 0, 0, 0, -207, -11)
+}
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h2l4d"]
+radius = 21.095
+
+[node name="bots" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-81, -83)
+scale = Vector2(0.976351, 1)
+curve = SubResource("Curve2D_47n6y")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(572.54, 256)
+rotates = false
+
+[node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D"]
+scale = Vector2(2.03083, 1.16913)
+script = SubResource("GDScript_mh0rf")
+
+[node name="Icon" type="Sprite2D" parent="Path2D/PathFollow2D/Area2D"]
+scale = Vector2(0.0671926, 0.112395)
+texture = ExtResource("1_qrhkb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Area2D"]
+shape = SubResource("RectangleShape2D_a04dk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="line" parent="." instance=ExtResource("2_77bne")]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="srightline" type="Path2D" parent="Node2D"]
+curve = SubResource("Curve2D_4icsj")
+
+[node name="Follow" type="PathFollow2D" parent="Node2D/srightline"]
+position = Vector2(-208, -12)
+rotation = 0.00244498
+
+[node name="Area2D" type="Area2D" parent="Node2D/srightline/Follow"]
+script = ExtResource("3_bk50y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/srightline/Follow/Area2D"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_amacc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/srightline/Follow/Area2D"]
+shape = SubResource("CircleShape2D_h2l4d")
+
+[node name="pathall" parent="." instance=ExtResource("5_buvo0")]

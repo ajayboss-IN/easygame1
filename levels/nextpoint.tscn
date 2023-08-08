@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4d5o21f1f33u"]
+
+[ext_resource type="Script" path="res://script/nextpoint.gd" id="1_f3stl"]
+[ext_resource type="Texture2D" uid="uid://j241ak2y4bdl" path="res://assets/box.png" id="1_w8jm4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd0pa"]
+
+[node name="endpoint" type="Area2D"]
+position = Vector2(0, -1)
+script = ExtResource("1_f3stl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.63641, 1.60297)
+shape = SubResource("RectangleShape2D_pd0pa")
+
+[node name="Box" type="Sprite2D" parent="."]
+modulate = Color(0, 0.462745, 0.639216, 1)
+texture = ExtResource("1_w8jm4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

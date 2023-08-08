@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://b58semj4o77w0"]
+
+[ext_resource type="Script" path="res://script/pathscr.gd" id="1_wjnt5"]
+[ext_resource type="Texture2D" uid="uid://dvuq5xufn1013" path="res://assets/circle.png" id="2_67wvp"]
+
+[sub_resource type="Curve2D" id="Curve2D_4icsj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -208, -12, 0, 0, 0, 0, 201, -11, 0, 0, 0, 0, -207, -11)
+}
+point_count = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h2l4d"]
+radius = 21.095
+
+[node name="pathall" type="Node2D"]
+
+[node name="srightline" type="Path2D" parent="."]
+curve = SubResource("Curve2D_4icsj")
+
+[node name="Follow" type="PathFollow2D" parent="srightline"]
+position = Vector2(-208, -12)
+rotation = 0.00244498
+
+[node name="Area2D" type="Area2D" parent="srightline/Follow"]
+script = ExtResource("1_wjnt5")
+
+[node name="Sprite2D" type="Sprite2D" parent="srightline/Follow/Area2D"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_67wvp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="srightline/Follow/Area2D"]
+shape = SubResource("CircleShape2D_h2l4d")
+
+[node name="391377" type="Timer" parent="srightline/Follow"]
+wait_time = 0.2
+one_shot = true
+
+[node name="411271" type="Timer" parent="srightline/Follow"]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="body_entered" from="srightline/Follow/Area2D" to="srightline/Follow/Area2D" method="_on_body_entered"]

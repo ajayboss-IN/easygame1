@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb625v7qx0xvq"]
+
+[ext_resource type="Texture2D" uid="uid://dd0cfh4aooffq" path="res://assets/trianle.png" id="1_7rj8d"]
+[ext_resource type="Script" path="res://script/triangle.gd" id="1_v6uum"]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_v6uum")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7rj8d")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 0.899999)
+scale = Vector2(1, 1.01758)
+build_mode = 1
+polygon = PackedVector2Array(0, -32, 32, 32, -32, 32)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
